@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public float mouseY = 0f;
+    public float Yrotation;
     float sensY = 1000f;
 
     public Camera cam;
@@ -19,12 +21,14 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseY = Input.GetAxis("MouseY");
+        this.mouseY = Input.GetAxis("MouseY");
 
-        transform.Rotate(new Vector3(mouseY, 0, 0) * Time.deltaTime * sensY);
+        //transform.Rotate(new Vector3(mouseY, 0, 0) * Time.deltaTime * sensY);
+        
+        this.Yrotation += mouseY * Time.deltaTime * sensY;
 
-        sensY = Mathf.Clamp(sensY, -60, 60);
-        //I don't know what's wrong...
+        Yrotation = Mathf.Clamp(Yrotation, -90, 90);
 
+        transform.localRotation = Quaternion.Euler(Yrotation, 0, 0);
     }
 }
