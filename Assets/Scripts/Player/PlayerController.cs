@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject Eyes;
+
+    
+
     Rigidbody rb;
 
     float speed = 5f;
@@ -24,10 +28,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        EyeRay();
+
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         float mouseX = Input.GetAxis("MouseX");
         float jump = Input.GetAxis("Jump");
+        float interact = Input.GetAxis("Interact");
+
+        jump += interact;
 
         transform.Translate(new Vector3(horizontalInput, 0, verticalInput) * Time.deltaTime * speed);
 
@@ -62,6 +71,14 @@ public class PlayerController : MonoBehaviour
             touching_floor = false;
         }
 
+    }
+
+    private GameObject EyeRay()
+    {
+        Ray ray = new Ray(Eyes.transform.position, Eyes.transform.forward);
+        Debug.DrawRay(Eyes.transform.position, Eyes.transform.forward * 100);
+
+        return null;
     }
 }
 //ctrl k and u undo/ k and c comment
